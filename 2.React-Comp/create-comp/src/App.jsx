@@ -1,13 +1,11 @@
-import KgButtons from "./KgButtons";
+import Conditional from "./Conditional";
 
-function App(){
-  return(
+function App() {
+  return (
     <>
-    <h1>
-      React+Vite Course 
-    </h1>
-    <KgButtons/>
+      <h1>React+Vite Course</h1>
+      <Conditional />
     </>
-  )
+  );
 }
 export default App;
