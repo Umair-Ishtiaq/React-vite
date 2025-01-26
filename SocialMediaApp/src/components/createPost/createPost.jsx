@@ -1,41 +1,93 @@
+import { useContext } from "react";
+import "./createPost.css";
+import { useRef } from "react";
+import { PostList } from "../../store/post-list-store";
 function CreatePost() {
+  const userId = useRef();
+  const postTitle = useRef();
+  const postBody = useRef();
+  const reactions = useRef();
+  const tags = useRef();
+  const { AddPost } = useContext(PostList);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const post = {
+      userID: Date.now(),
+      title: postTitle.current.value,
+      body: postBody.current.value,
+      reactions: reactions.current.value,
+      tags: tags.current.value.split(/(\s+)/),
+    };
+    AddPost(post);
+  };
+
   return (
     <>
-      <form>
+      <form className="create-post w-50 m-3 mt-4" onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label htmlFor="exampleInputEmail1" className="form-label">
-            Email address
+          <label htmlFor="userId" className="form-label">
+            user-ID
           </label>
           <input
-            type="email"
+            type="Text"
             className="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
+            id="userId"
+            ref={userId}
+            placeholder="Enter user id"
           />
-          <div id="emailHelp" className="form-text">
-            We&apos;ll never share your email with anyone else.
+        </div>
+        <div className="mb-3">
+          <label htmlFor="title" className="form-label">
+            Title
+          </label>
+          <input
+            type="Text"
+            className="form-control"
+            id="title"
+            ref={postTitle}
+            placeholder="Enter Title"
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="body" className="form-label">
+            body
+          </label>
+          <textarea
+            type="Text"
+            className="form-control"
+            id="body"
+            ref={postBody}
+            placeholder="Enter Body"
+            rows={5}
+          />
+          <div className="mb-3">
+            <label htmlFor="reactions" className="form-label">
+              Reactions
+            </label>
+            <input
+              type="Text"
+              className="form-control"
+              id="reactions"
+              ref={reactions}
+              placeholder="Enter reactions"
+            />
           </div>
         </div>
+
         <div className="mb-3">
-          <label htmlFor="exampleInputPassword1" className="form-label">
-            Password
+          <label htmlFor="tags" className="form-label">
+            Tags
           </label>
           <input
-            type="password"
+            type="Text"
             className="form-control"
-            id="exampleInputPassword1"
+            id="tags"
+            ref={tags}
+            placeholder="Enter tags"
           />
         </div>
-        <div className="mb-3 form-check">
-          <input
-            type="checkbox"
-            className="form-check-input"
-            id="exampleCheck1"
-          />
-          <label className="form-check-label" htmlFor="exampleCheck1">
-            Check me out
-          </label>
-        </div>
+
         <button type="submit" className="btn btn-primary">
           Submit
         </button>
